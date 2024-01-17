@@ -2105,7 +2105,7 @@ namespace GLTFast.Export
         {
             var node = new Node
             {
-                name = name,
+                name = EscapeJson(name),
             };
             if (translation.HasValue && !translation.Equals(float3.zero))
             {
@@ -2146,7 +2146,7 @@ namespace GLTFast.Export
 
             var mesh = new Mesh
             {
-                name = uMesh.name
+                name = EscapeJson(uMesh.name)
             };
             m_Meshes = m_Meshes ?? new List<Mesh>();
             m_UnityMeshes = m_UnityMeshes ?? new List<UnityEngine.Mesh>();
@@ -2174,6 +2174,14 @@ namespace GLTFast.Export
                 return bufferViewId;
             }
         }
+
+        static string EscapeJson(string s)
+            => s?.Replace("\\", "\\\\")
+                 .Replace("\f", "\\f")
+                 .Replace("\n", "\\n")
+                 .Replace("\r", "\\r")
+                 .Replace("\t", "\\t")
+                 .Replace("\"", "\\\"");
 
         Stream CertifyBuffer()
         {
