@@ -964,7 +964,7 @@ namespace GLTFast.Export
                     return false;
                 
                 using var nativeIndices = requestIndexBuf.GetData<ushort>();
-                meshData.SetIndexBufferParams(nativeIndices.Length, mesh.indexFormat);
+                meshData.SetIndexBufferParams(indexBuf.count, mesh.indexFormat);
                 var ind = meshData.GetIndexData<ushort>();
                 nativeIndices.CopyTo(ind);
                 
